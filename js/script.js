@@ -17,26 +17,50 @@ const loadCategory = async () =>{
     //console.log(data.data);
 }
 
+
+
 const handleLoadVideo = async (category_id) =>{
     
     const response = await fetch(`https://openapi.programming-hero.com/api/videos/category/${category_id}`);
     
+
+    //console.log(response);
     const data = await response.json();
-    
+
+    const allData = data.data;
 
     const cardContainer = document.getElementById('card-container');
 
     cardContainer.innerHTML = " ";
 
-    data.data?.forEach( (videos) => {
+    if(allData.length > 0){
+
+    
+    
+
+    
+
+    data.data.forEach( (videos) => {
         console.log(videos);
+
+        const scondTotal = videos.others.posted_date;
+        const hours = Math.floor(scondTotal/3600);
+        const minuites = Math.floor(scondTotal%3600/60);
+        console.log(scondTotal);
+        console.log(hours);
+        console.log(minuites);
+        
 
 
        const div = document.createElement('div');
         div.innerHTML = `
         <div class="card  bg-base-100 shadow-xl">
-        <figure>
-            <img src =${videos?.thumbnail} />
+        <figure class="relative h-[200px]">
+            
+            <img  class="h-full w-full" src =${videos?.thumbnail} />
+            <div class="absolute bottom-2 right-2 bg-black text-white p-2">
+            <p>${scondTotal > 0 && scondTotal < 100000 ? `${hours} hrs ${minuites}min ago `    : " "  }</p>
+            </div>
             </figure>
             <div class="card-body">
             
@@ -85,6 +109,15 @@ const handleLoadVideo = async (category_id) =>{
     } )
     
    
+} else{
+    cardContainer.innerHTML = `
+
+    <div class="container mx-auto my-4 w-9/12">
+    <img src="./images/Icon.png"/>
+    <h2>Oops!! Sorry, There is no content here</h2>
+    </div>
+    `
+}
    
    
    
@@ -92,7 +125,11 @@ const handleLoadVideo = async (category_id) =>{
     //console.log(category_id);
 }
 
+const shorALL = () => {
+
+}
+
 
 
 loadCategory();
-handleLoadVideo('1001');
+handleLoadVideo('1000');
