@@ -6,7 +6,7 @@ const loadCategory = async () =>{
 
     const tabsContainer = document.getElementById('tabs-container');
     data.data.forEach((category) => {
-        //console.log(category);
+        
         const div = document.createElement("div");
         div.innerHTML = `
         <a  onclick="handleLoadVideo('${category.category_id}')"  class="tab mr-2 bg-red-100">${category.category
@@ -14,7 +14,7 @@ const loadCategory = async () =>{
         `;
         tabsContainer.appendChild(div);
     })
-    //console.log(data.data);
+   
 }
 
 
@@ -24,7 +24,7 @@ const handleLoadVideo = async (category_id) =>{
     const response = await fetch(`https://openapi.programming-hero.com/api/videos/category/${category_id}`);
     
 
-    //console.log(response);
+    
     const data = await response.json();
 
     const allData = data.data;
@@ -41,14 +41,11 @@ const handleLoadVideo = async (category_id) =>{
     
 
     data.data.forEach( (videos) => {
-        console.log(videos);
-
+        
         const scondTotal = videos.others.posted_date;
         const hours = Math.floor(scondTotal/3600);
         const minuites = Math.floor(scondTotal%3600/60);
-        console.log(scondTotal);
-        console.log(hours);
-        console.log(minuites);
+        
         
 
 
@@ -122,13 +119,8 @@ const handleLoadVideo = async (category_id) =>{
    
    
    
-    //console.log(category_id);
+    
 }
-
-const shorALL = () => {
-
-}
-
 
 
 loadCategory();
